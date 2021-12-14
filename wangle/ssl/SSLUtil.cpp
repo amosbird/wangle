@@ -48,6 +48,9 @@ SSLResumeEnum SSLUtil::getResumeState(folly::AsyncSSLSocket* sslSocket) {
       : SSLResumeEnum::HANDSHAKE;
 }
 
+#define ub_common_name                  64
+#define PKCS5_SALT_LEN 8
+
 std::unique_ptr<std::string> SSLUtil::getCommonName(const X509* cert) {
   X509_NAME* subject = X509_get_subject_name((X509*)cert);
   if (!subject) {
@@ -192,7 +195,7 @@ folly::Optional<std::string> SSLUtil::decryptOpenSSLEncFilePassString(
       digest,
       reinterpret_cast<const unsigned char*>(salt.data()),
       reinterpret_cast<const unsigned char*>(password.data()),
-      folly::to_narrow(folly::to_signed(password.size())),
+      folly::to_narrow(password.size()),
       1 /* one round */,
       key.data(),
       iv.data());

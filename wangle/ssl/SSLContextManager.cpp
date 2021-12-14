@@ -1313,13 +1313,13 @@ void SSLContextManager::reloadTLSTicketKeys(
 
 void SSLContextManager::setClientHelloExtStats(ClientHelloExtStats* stats) {
   clientHelloTLSExtStats_ = stats;
-  if (defaultCtx_) {
-    defaultCtx_->setServerNameCallback(
-        [stats = clientHelloTLSExtStats_, contexts = contexts_](SSL* ssl) {
-          return SSLContextManager::SslContexts::serverNameCallback(
-              ssl, stats, contexts);
-        });
-  }
+  // if (defaultCtx_) {
+  //   defaultCtx_->setServerNameCallback(
+  //       [stats = clientHelloTLSExtStats_, contexts = contexts_](SSL* ssl) {
+  //         return SSLContextManager::SslContexts::serverNameCallback(
+  //             ssl, stats, contexts);
+  //       });
+  // }
 }
 
 void SSLContextManager::insertSSLCtxByDomainName(
